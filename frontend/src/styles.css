@@ -1,0 +1,50 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background: #f6f3ee;
+  color: #2c1810;
+}
+a { color: inherit; }
+.container { max-width: 1080px; margin: 0 auto; padding: 1.5rem; }
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  background: #6b1e2b;
+  color: #fff;
+}
+button.secondary { background: #e8dcc8; color: #4a1420; }
+button:hover { opacity: 0.9; }
+input, select, textarea {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #d9c19a;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+th { background: #f1e6d3; color: #4a1420; }
+.badge { padding: 0.15rem 0.6rem; border-radius: 20px; font-size: 0.75rem; display: inline-block; }
+.badge-lead { background: #fdecc8; color: #8a5a00; }
+.badge-confirmed { background: #d9ecd9; color: #2f6b2f; }
+.badge-in_progress { background: #dce6f5; color: #2a4d8f; }
+.badge-completed { background: #e2e2e2; color: #444; }
+.badge-cancelled { background: #f5d9d9; color: #8a2a2a; }
+.cards { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0 2rem; }
+.card {
+  background: #fff; border: 1px solid #ecdcc0; border-radius: 6px;
+  padding: 1rem 1.5rem; min-width: 120px; text-align: center;
+}
+.card .num { font-size: 1.8rem; font-weight: 600; color: #6b1e2b; }
+.filters { display: flex; gap: 0.6rem; margin-bottom: 1rem; }
+.filters input, .filters select { max-width: 220px; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 700px; }
+.form-grid .full { grid-column: 1 / -1; }
+.form-row label { display: block; font-size: 0.85rem; margin-bottom: 0.3rem; color: #6b1e2b; }
+.section-block { margin-top: 2rem; }
+.actions-row { margin-top: 1rem; display: flex; gap: 0.6rem; }

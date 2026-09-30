@@ -1,0 +1,9 @@
+# CORS_ORIGINS should list the CloudFront/S3 URL the Angular app is served from.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: shaadi-crm
+data:
+  CORS_ORIGINS: "https://app.shaadi-crm.example.com"
+  ENVIRONMENT: "production"

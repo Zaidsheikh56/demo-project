@@ -1,0 +1,66 @@
+<h1>{{ id ? 'Edit Customer' : 'New Customer' }}</h1>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="form-grid">
+  <div class="form-row"><label>Name</label><input formControlName="name"></div>
+  <div class="form-row"><label>Phone</label><input formControlName="phone"></div>
+  <div class="form-row"><label>Email</label><input formControlName="email"></div>
+  <div class="form-row"><label>Partner name</label><input formControlName="partner_name"></div>
+
+  <div class="form-row">
+    <label>Event type</label>
+    <select formControlName="event_type">
+      <option *ngFor="let t of eventTypes" [value]="t">{{ t }}</option>
+    </select>
+  </div>
+  <div class="form-row"><label>Event date</label><input type="date" formControlName="event_date"></div>
+  <div class="form-row"><label>Venue</label><input formControlName="venue"></div>
+  <div class="form-row"><label>Guest count</label><input formControlName="guest_count"></div>
+
+  <div class="form-row"><label>Budget (₹)</label><input type="number" formControlName="budget"></div>
+  <div class="form-row">
+    <label>Status</label>
+    <select formControlName="status">
+      <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+  <div class="form-row full"><label>Source (referral, Instagram, walk-in…)</label><input formControlName="source"></div>
+
+  <div class="full actions-row">
+    <button type="submit" [disabled]="form.invalid">Save</button>
+  </div>
+</form>
+
+<div *ngIf="detail" class="section-block">
+  <h2>Payments (total ₹{{ totalPaid }})</h2>
+  <table>
+    <thead><tr><th>Amount</th><th>Method</th><th>Date</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let p of detail.payments">
+        <td>₹{{ p.amount }}</td><td>{{ p.method }}</td><td>{{ p.paid_on }}</td>
+      </tr>
+      <tr *ngIf="!detail.payments.length"><td colspan="3">No payments recorded.</td></tr>
+    </tbody>
+  </table>
+  <div class="filters" style="margin-top: 0.8rem;">
+    <input type="number" placeholder="Amount" [(ngModel)]="newPaymentAmount" [ngModelOptions]="{standalone: true}">
+    <select [(ngModel)]="newPaymentMethod" [ngModelOptions]="{standalone: true}">
+      <option value="cash">Cash</option>
+      <option value="upi">UPI</option>
+      <option value="card">Card</option>
+      <option value="bank_transfer">Bank transfer</option>
+    </select>
+    <button (click)="addPayment()">Add payment</button>
+  </div>
+</div>
+
+<div *ngIf="detail" class="section-block">
+  <h2>Notes</h2>
+  <ul>
+    <li *ngFor="let n of detail.notes">{{ n.content }} <small>({{ n.created_at | date:'short' }})</small></li>
+    <li *ngIf="!detail.notes.length">No notes yet.</li>
+  </ul>
+  <div class="filters">
+    <input placeholder="Add a note…" [(ngModel)]="newNote" [ngModelOptions]="{standalone: true}" (keyup.enter)="addNote()">
+    <button (click)="addNote()">Add note</button>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+# Run this as a one-off Job whenever you deploy a new backend image with
+# schema changes:
+#   kubectl delete job db-migrate -n shaadi-crm --ignore-not-found
+#   kubectl apply -f 25-migration-job.yaml
+#   kubectl wait --for=condition=complete job/db-migrate -n shaadi-crm --timeout=120s
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migrate
+  namespace: shaadi-crm
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: <ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/shaadi-crm-backend:latest
+          command: ["alembic", "upgrade", "head"]
+          envFrom:
+            - secretRef: { name: backend-secret }

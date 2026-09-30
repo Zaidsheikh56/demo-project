@@ -1,0 +1,24 @@
+<h1>Dashboard</h1>
+
+<div *ngIf="loading">Loading…</div>
+
+<div *ngIf="!loading" class="cards">
+  <div class="card"><div class="num">{{ countByStatus('lead') }}</div><div>Leads</div></div>
+  <div class="card"><div class="num">{{ countByStatus('confirmed') }}</div><div>Confirmed</div></div>
+  <div class="card"><div class="num">{{ countByStatus('in_progress') }}</div><div>In progress</div></div>
+  <div class="card"><div class="num">{{ countByStatus('completed') }}</div><div>Completed</div></div>
+</div>
+
+<h2>Upcoming events</h2>
+<table *ngIf="upcoming.length; else none">
+  <thead><tr><th>Customer</th><th>Event</th><th>Date</th><th>Venue</th></tr></thead>
+  <tbody>
+    <tr *ngFor="let c of upcoming" [routerLink]="['/customers', c.id]" style="cursor:pointer">
+      <td>{{ c.name }}</td>
+      <td>{{ c.event_type }}</td>
+      <td>{{ c.event_date }}</td>
+      <td>{{ c.venue }}</td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #none><p>No upcoming events scheduled.</p></ng-template>

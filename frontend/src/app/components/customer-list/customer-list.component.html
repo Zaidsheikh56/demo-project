@@ -1,0 +1,32 @@
+<div class="toolbar">
+  <h1>Customers</h1>
+  <a routerLink="/customers/new"><button>+ New Customer</button></a>
+</div>
+
+<div class="filters">
+  <input placeholder="Search name, phone, email" [(ngModel)]="search" (keyup.enter)="fetch()">
+  <select [(ngModel)]="status" (change)="fetch()">
+    <option value="">All statuses</option>
+    <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+  </select>
+  <button (click)="fetch()">Search</button>
+</div>
+
+<div *ngIf="loading">Loading…</div>
+
+<table *ngIf="!loading">
+  <thead>
+    <tr><th>Name</th><th>Phone</th><th>Event</th><th>Date</th><th>Status</th><th></th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of customers" [routerLink]="['/customers', c.id]" style="cursor:pointer">
+      <td>{{ c.name }}</td>
+      <td>{{ c.phone }}</td>
+      <td>{{ c.event_type }}</td>
+      <td>{{ c.event_date || '—' }}</td>
+      <td><span class="badge" [ngClass]="'badge-' + c.status">{{ c.status }}</span></td>
+      <td><button class="secondary" (click)="remove(c, $event)">Delete</button></td>
+    </tr>
+    <tr *ngIf="!customers.length"><td colspan="6">No customers found.</td></tr>
+  </tbody>
+</table>
